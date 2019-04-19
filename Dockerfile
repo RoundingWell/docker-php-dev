@@ -1,6 +1,6 @@
-MAINTAINER woody.gilk@roundingwell.com
-
 FROM php:7.3-fpm
+
+MAINTAINER woody.gilk@roundingwell.com
 
 RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 
