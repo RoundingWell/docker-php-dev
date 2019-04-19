@@ -4,7 +4,8 @@ MAINTAINER woody.gilk@roundingwell.com
 
 RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 
-COPY conf/php.ini "$PHP_INI_DIR/conf.d/php.ini"
+COPY conf/errors.ini "$PHP_INI_DIR/conf.d/errors.ini"
+COPY conf/timezone.ini "$PHP_INI_DIR/conf.d/timezone.ini"
 COPY conf/xdebug.ini "$PHP_INI_DIR/conf.d/xdebug.ini"
 
 RUN apt-get update && apt-get install -y \
