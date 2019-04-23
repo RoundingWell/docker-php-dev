@@ -1,9 +1,9 @@
 FROM roundingwell/php-fpm:latest
 
-MAINTAINER woody.gilk@roundingwell.com
+MAINTAINER devops@roundingwell.com
 
-RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
+RUN apk --update --no-cache add \
+    php7-pecl-xdebug
 
-COPY conf/xdebug.ini "$PHP_INI_DIR/conf.d/xdebug.ini"
-
-RUN pecl install xdebug && docker-php-ext-enable xdebug
+COPY php.ini /etc/php7/conf.d/20-development.ini
+COPY xdebug.ini /etc/php7/conf.d/xdebug.ini
