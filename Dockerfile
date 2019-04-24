@@ -2,20 +2,29 @@ FROM roundingwell/php-fpm:latest
 
 MAINTAINER devops@roundingwell.com
 
+# Add system packages for development
+# https://circleci.com/docs/2.0/custom-images/#required-tools-for-primary-containers
 RUN apk --update --no-cache add \
-    composer \
     git \
-    openssh-client \
-    php7-pecl-xdebug \
-    php7-simplexml \
-    php7-tokenizer \
-    php7-xmlwriter
+    openssh-client
 
-COPY php.ini /etc/php7/conf.d/20-development.ini
-COPY xdebug.ini /etc/php7/conf.d/xdebug.ini
+# Install composer for self-supporting container
+# https://getcomposer.org/doc/faqs/how-to-install-composer-programmatically.md
+COPY install-composer.sh /root/install-composer.sh
+RUN /root/install-composer.sh \
+    && mv composer.phar /usr/local/bin/composer \
+    && rm /root/install-composer.sh
 
-# Add a normal user to execute composer, etc
-RUN addgroup -S app && adduser -S -D app -G app
+# Add development PHP extensions
+RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS \
+    && pecl install xdebug-2.7.1 \
+    && docker-php-ext-enable xdebug \
+    && apk del .build-deps
 
-# Execute commands as a normal user
-USER app:app
+# Use default development config
+# The PHP_INI_DIR variable is defined by the base image.
+# https://github.com/php/php-src/blob/master/php.ini-production
+RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
+
+# Add additional development settings
+COPY xdebug.ini "$PHP_INI_DIR/conf.d/90-xdebug.ini"

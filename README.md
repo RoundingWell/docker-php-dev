@@ -7,4 +7,4 @@ with development tools.
 
 ## XDebug
 
-Exposes port `9001` to the Docker host for remote debugging.
+XDebug is available on port `9001` to the Docker host for remote debugging.
