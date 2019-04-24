@@ -3,6 +3,7 @@ FROM roundingwell/php-fpm:latest
 MAINTAINER devops@roundingwell.com
 
 RUN apk --update --no-cache add \
+    composer \
     git \
     openssh-client \
     php7-pecl-xdebug
