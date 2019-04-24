@@ -1,12 +1,10 @@
 # RoundingWell PHP-FPM (dev)
 
-Docker container for PHP-FPM (development only).
+Extends [roundingwell/php-fpm](https://hub.docker.com/r/roundingwell/php-fpm)
+with development tools.
 
 <https://hub.docker.com/r/roundingwell/php-fpm-dev>
 
-## Build and Test
+## XDebug
 
-```bash
-docker build .
-docker run --rm -v $(pwd):/var/www/html $(docker images -q | head -1)
-```
+Exposes port `9001` to the Docker host for remote debugging.
