@@ -4,3 +4,7 @@ Extends [roundingwell/php-fpm](https://hub.docker.com/r/roundingwell/php-fpm)
 with development tools.
 
 <https://hub.docker.com/r/roundingwell/php-fpm-dev>
+
+## XDebug
+
+XDebug is available on port `9002` to the Docker host for remote debugging.
